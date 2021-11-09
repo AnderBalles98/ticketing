@@ -131,6 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=2),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),

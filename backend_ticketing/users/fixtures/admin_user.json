@@ -1,5 +1,0 @@
-[
-  {"fields": {"name": "admin", "id": 1}, "model": "auth.group"},
-  {"fields": {"username": "admin", "password": "admin", "id": 1}, "model": "auth.user"},
-  {"fields": {"user_id": 1, "group_id": 1}, "model": "auth.user_groups"}
-]

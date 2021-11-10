@@ -25,10 +25,16 @@ class CompanyUser(models.Model):
     company = models.ForeignKey(Company, null=True, related_name='company_user', on_delete=models.SET_NULL)
     date_join = datetime.datetime.now()
 
+class Project(StampModel):
+    name = models.CharField(max_length=70, unique=True)
+    description = models.TextField(null=True)
+    company = models.ForeignKey(Company, null=True, related_name='company_projects', on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, null=True, related_name='user_projects', on_delete=models.SET_NULL)
+
 class UserStory(StampModel):
     name = models.CharField(max_length=70)
     description = models.TextField(null=True)
-    company = models.ForeignKey(Company, null=True, related_name='user_stories', on_delete=models.SET_NULL)
+    project = models.ForeignKey(Project, null=True, related_name='projects_user_stories', on_delete=models.SET_NULL)
     created_by = models.ForeignKey(User, null=True, related_name='user_stories', on_delete=models.SET_NULL)
 
 class TicketState(models.Model):
@@ -41,7 +47,7 @@ class Ticket(StampModel):
     description = models.TextField(null=True)
     user_story = models.ForeignKey(UserStory, null=True, related_name='tickets', on_delete=models.SET_NULL)
     state = models.ForeignKey(TicketState, null=True, default=1, related_name='tickets', on_delete=models.SET_NULL)
-    crated_by = models.ForeignKey(User, null=True, related_name='tickets', on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, null=True, related_name='tickets', on_delete=models.SET_NULL)
 
 class Comment(StampModel):
     text = models.TextField()

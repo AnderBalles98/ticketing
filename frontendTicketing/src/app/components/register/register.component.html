@@ -1,0 +1,55 @@
+<div class="sidenav">
+  <div class="login-main-text">
+    <h2>
+      Application<br />
+      Login Page
+    </h2>
+    <p>Login or register from here to access.</p>
+  </div>
+</div>
+<div class="main">
+  <div class="col-md-6 col-sm-12">
+    <div class="register-form">
+      <form [formGroup]="registerControlForm" (submit)="register()">
+        <div class="form-group">
+          <label>User Name</label>
+          <input type="text" class="form-control"
+                 [title]="getErrorRegisterControlUsername()"
+                 [class.is-invalid]="isFormControlInvalid(registerControlUsername)"
+                 [formControl]="registerControlUsername" placeholder="User Name"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control"
+                 [title]="getErrorRegisterControlPassword()"
+                 [class.is-invalid]="isFormControlInvalid(registerControlPassword)"
+                 [formControl]="registerControlPassword" placeholder="Password" />
+        </div>
+        <div class="form-group">
+          <label>Confirm password</label>
+          <input type="password" class="form-control"
+                 [title]="getErrorRegisterControlConfirmPassword()"
+                 [class.is-invalid]="isFormControlInvalid(registerControlConfirmPassword)"
+                 [formControl]="registerControlConfirmPassword" placeholder="Password"/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control"
+                 [title]="getErrorRegisterControlEmail()"
+                 [class.is-invalid]="isFormControlInvalid(registerControlEmail)"
+                 [formControl]="registerControlEmail" placeholder="email"/>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="email" class="form-control" [formControl]="registerControlName" placeholder="name"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="email" class="form-control" [formControl]="registerControlLastName" placeholder="last name"/>
+        </div>
+        <button type="submit" id="register-button" [disabled]="registerControlForm.invalid" class="btn btn-black">Register</button>
+        <button type="button" routerLink="/login" class="btn btn-secondary">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

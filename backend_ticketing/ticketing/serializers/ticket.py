@@ -4,11 +4,12 @@ from .ticket_state import TicketStateSerializer
 from .user_story import UserStorySerializer
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ValidationError as ModelValidationError, ObjectDoesNotExist
-
+from users.serializers import UserSerializer
 class TicketSerializer(serializers.ModelSerializer):
 
     state = TicketStateSerializer(required=False)
     user_story = UserStorySerializer(read_only=True)
+    created_by = UserSerializer(read_only=True)
 
     class Meta:
         model = Ticket
@@ -18,12 +19,14 @@ class TicketSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         ticket = Ticket(**validated_data)
         context_data = self.context['request'].data
+        user = self.context['request'].user
         if not 'user_story' in context_data.keys():
             raise serializers.ValidationError({'user_story': ['This value is required']})
         user_story_id = context_data['user_story']
         try:
             user_story = UserStory.objects.get(pk=user_story_id)
             ticket.user_story = user_story
+            ticket.created_by = user
         except ObjectDoesNotExist:
             raise serializers.ValidationError({'user_story': ['user_story doesn\'t exist']})
         except ModelValidationError:

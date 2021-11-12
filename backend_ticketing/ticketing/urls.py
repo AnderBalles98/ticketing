@@ -1,5 +1,5 @@
 from django.urls import path
-from ticketing.views import (CompanyCreateView, CompanyListView, CompanyUserListView, CompanyUserListByCompanyView, CompanyUserCreateView,
+from ticketing.views import (CompanyCreateView, CompanyListView, CompanyUserListView, CompanyUserListByCompanyView, CompanyUserCreateView, CompanyUserGetByMyUserView,
                              UserStoryCreateView, UserStoryListView, UserStoryUpdateView, UserStoryListByProjectView,
                              UserStoryDestroyApiView, UserStoryListByProjectNameAndCompanyNameView, TicketDestroyApiView, TicketListApiView,
                              TicketUpdateApiView, TicketCreateApiView, TicketingListByUserStoryView, TicketStateListView, TicketingListByCompanyAndProjectAndUserStorySubIdView,
@@ -11,6 +11,7 @@ urlpatterns = [
     path('company/list/', CompanyListView.as_view()),
     path('company/user/create/', CompanyUserCreateView.as_view()),
     path('company/user/list/', CompanyUserListView.as_view()),
+    path('company/user/my/', CompanyUserGetByMyUserView.as_view()),
     path('company/project/create/', ProjectCreateApiView.as_view()),
     path('company/project/list/', ProjectListApiView.as_view()),
     path('company/project/list/by/company/<company_pk>/', ProjectListByCompanyView.as_view()),

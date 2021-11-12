@@ -7,6 +7,8 @@ from django.core.exceptions import ValidationError as ModelValidationError, Obje
 
 class CompanyUserSerializer(serializers.ModelSerializer):
 
+    company = CompanySerializer(read_only=True)
+
     class Meta:
         model = CompanyUser
         fields = '__all__'

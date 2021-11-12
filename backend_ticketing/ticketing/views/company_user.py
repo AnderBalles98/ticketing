@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from ticketing.serializers import CompanyUserSerializer
 from ticketing.models import CompanyUser, Company
 from rest_framework import serializers
@@ -18,6 +18,22 @@ class CompanyUserListView(ListAPIView):
     
     def get(self, request):
         return super(CompanyUserListView, self).get(request)
+
+
+class CompanyUserGetByMyUserView(RetrieveAPIView):
+
+    serializer_class = CompanyUserSerializer
+    queryset = CompanyUser.objects.all()
+
+    def get_object(self):
+        try:
+            user = self.request.user
+            return self.queryset.get(user=user)
+        except ObjectDoesNotExist:
+            raise NotFound()
+
+    def get(self, request):
+        return super(CompanyUserGetByMyUserView, self).get(request)
 
 class CompanyUserListByCompanyView(ListAPIView):
     serializer_class = CompanyUserSerializer

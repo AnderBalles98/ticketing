@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from ticketing.serializers import CompanySerializer
 from users.decorators import CheckGroup
 from ticketing.models import Company
@@ -19,3 +19,7 @@ class CompanyListView(ListAPIView):
     def get(self, request):
         return super(CompanyListView, self).get(request)
 
+class CompanyRetrieveByName(RetrieveAPIView):
+
+    serializer_class = CompanySerializer
+    queryset = Company.objects.all()

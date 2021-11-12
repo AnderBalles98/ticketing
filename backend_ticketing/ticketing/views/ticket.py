@@ -1,10 +1,9 @@
-from ticketing.models import Ticket, TicketState, UserStory, TicketState
+from ticketing.models import Ticket, TicketState, UserStory, Company, Project
 from ticketing.serializers import TicketSerializer
 from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ValidationError as ModelValidationError, ObjectDoesNotExist
-from django.forms.models import model_to_dict
 
 
 class TicketCreateApiView(CreateAPIView):
@@ -41,6 +40,32 @@ class TicketingListByUserStoryView(ListAPIView):
     def get(self, request, user_story_pk=None):
         return super(TicketingListByUserStoryView, self).get(request)
 
+class TicketingListByCompanyAndProjectAndUserStorySubIdView(ListAPIView):
+
+    serializer_class = TicketSerializer
+    queryset = Ticket.objects.all()
+
+    def get_queryset(self):
+        try:
+            company = Company.objects.get(name=self.kwargs['company_name'])
+            try:
+                project = Project.objects.get(name=self.kwargs['project_name'], company=company)
+                try:
+                    user_story = UserStory.objects.get(display_id=self.kwargs['user_story_display_id'], project=project)
+                    return self.queryset.filter(user_story=user_story)
+                except ModelValidationError:
+                    raise serializers.ValidationError({'user_story_display_id': ['This value is not a valid id.']})
+            except ModelValidationError:
+                raise serializers.ValidationError({'project_name': ['This value is not a valid name.']})
+        except ModelValidationError:
+            raise serializers.ValidationError({'company_name': ['This value is not a valid name.']})
+        except ObjectDoesNotExist:
+            raise NotFound()
+
+
+    def get(self, request, company_name=None, project_name=None, user_story_display_id=None):
+        return super(TicketingListByCompanyAndProjectAndUserStorySubIdView, self).get(request)
+
 class TicketUpdateApiView(UpdateAPIView):
 
     serializer_class = TicketSerializer
@@ -68,3 +93,5 @@ class TicketDestroyApiView(DestroyAPIView):
 
     def delete(self, request, pk=None):
         return super(TicketDestroyApiView, self).delete(request)
+
+

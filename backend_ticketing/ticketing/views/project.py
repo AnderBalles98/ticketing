@@ -54,6 +54,23 @@ class ProjectListByCompanyView(ListAPIView):
     def get(self, request, company_pk=None):
         return super(ProjectListByCompanyView, self).get(request)
 
+class ProjectListByCompanyNameView(ListAPIView):
+
+    serializer_class = ProjectSerializer
+    queryset = Project.objects.all()
+
+    def get_queryset(self):
+        try:
+            company = Company.objects.get(name=self.kwargs['company_name'])
+            return self.queryset.filter(company=company)
+        except ModelValidationError:
+            raise serializers.ValidationError({'company_name': ['This value is not a valid name.']})
+        except ObjectDoesNotExist:
+            raise NotFound()
+
+    def get(self, request, company_name=None):
+        return super(ProjectListByCompanyNameView, self).get(request)
+
 class ProjectDestroyApiView(DestroyAPIView):
 
     serializer_class = ProjectSerializer

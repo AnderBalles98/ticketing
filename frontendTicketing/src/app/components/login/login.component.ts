@@ -2,9 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { FormControl, FormGroup,  Validators } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
-import {LoginModel} from "../../models/login";
-import {LoginService} from "../../services/login";
+import {LoginModel} from "../../models/login.model";
+import {LoginService} from "../../services/login.service";
 import swal from "sweetalert2"
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -20,21 +23,23 @@ export class LoginComponent implements OnInit {
     password: this.loginControlPassword
   });
 
-  private loginService = new LoginService(this.http, this.cookieService)
+  private loginService = new LoginService(this.http, this.cookieService, this.jwtHelpet)
+  private userService = new UserService(this.jwtHelpet, this.cookieService)
 
-
-  constructor(@Inject(HttpClient) private http: HttpClient, @Inject(CookieService) private cookieService: CookieService) {
+  constructor(@Inject(HttpClient) private http: HttpClient, @Inject(CookieService) private cookieService: CookieService,
+              @Inject(JwtHelperService) private jwtHelpet: JwtHelperService, private router: Router) {
   }
 
   login(){
     let login = LoginModel.map(this.loginControlForm.value);
     this.loginService.login(login).subscribe((response: any) => {
-      this.loginService.setToken(response.token);
+      this.userService.setToken(response.token);
+      this.router.navigate(['/companies']);
     }, (error: any) => {
       console.log(error.error);
       swal.fire('Invalid credentials', 'Login', 'error');
       this.loginControlPassword.setValue('');
-      this.loginService.deleteToken();
+      this.userService.deleteToken();
     });
   }
 

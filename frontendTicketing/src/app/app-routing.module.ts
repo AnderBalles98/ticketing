@@ -4,10 +4,15 @@ import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {CompaniesComponent} from "./components/companies/companies.component";
 
+// guards
+import {AuthenticationGuard} from "./guards/authentication.guard";
+import {NotAuthenticationGuard} from "./guards/not-authentication.guard";
+
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'companies', component: CompaniesComponent}
+  {path: '', redirectTo: '/companies', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent, canActivate: [NotAuthenticationGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [NotAuthenticationGuard]},
+  {path: 'companies', component: CompaniesComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { environment } from "src/environments/environment";
 import {CookieService} from "ngx-cookie-service";
-import {RegisterModel} from "../models/register";
+import {RegisterModel} from "../models/register.model";
 
 @Injectable({
   providedIn: 'root'

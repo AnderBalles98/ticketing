@@ -3,18 +3,22 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
 
 // Peticiones HttpClient
 import {HttpClientModule} from "@angular/common/http";
 
 // Cookies
 import {CookieService} from "ngx-cookie-service";
+
+// components
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
 import { CompaniesComponent } from './components/companies/companies.component';
-import { CompanyComponent } from './components/company/company.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { CompanyComponent } from './components/company/company.component';
     LoginComponent,
     RegisterComponent,
     CompaniesComponent,
-    CompanyComponent
+    NavbarComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import { CompanyComponent } from './components/company/company.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

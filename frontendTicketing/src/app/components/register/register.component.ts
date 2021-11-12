@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {RegisterModel} from "../../models/register";
-import {RegisterService} from "../../services/register";
+import {RegisterModel} from "../../models/register.model";
+import {RegisterService} from "../../services/register.service";
 import swal from "sweetalert2";
 import {HttpClient} from "@angular/common/http";
 import {MatchValidator} from "../../validators/match";

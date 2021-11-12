@@ -13,19 +13,20 @@ import {CompanyModel} from "../models/company.model";
 
 export class CompanyService {
 
-  private headers: HttpHeaders;
   private userService = new UserService(this.jwtHelper, this.cookieService, this.http);
   private companyKey = 'company';
-  private token: string;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private jwtHelper: JwtHelperService) {
-    this.token = this.userService.getToken();
-    let Authorization = 'Bearer ' + this.token;
-    this.headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+  }
+
+  private getHeaders(): HttpHeaders {
+    let Authorization = 'Bearer ' + this.userService.getToken();
+    let headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+    return headers
   }
 
   list(): Observable<unknown> {
-    let headers = this.headers
+    let headers = this.getHeaders()
     console.log(headers)
     let http = this.http.get(environment.apiUrl + "/ticketing/company/list/", {headers})
     console.log(http)
@@ -34,12 +35,12 @@ export class CompanyService {
 
   registerUserByToken(copmanyId: string): Observable<unknown> {
     let userService = new UserService(this.jwtHelper, this.cookieService, this.http);
-
+    let token = userService.getToken()
     let payload = {
-      'user': userService.getIdByToken(this.token),
+      'user': userService.getIdByToken(token),
       'company': copmanyId
     }
-    let headers = this.headers
+    let headers = this.getHeaders()
     return this.http.post(environment.apiUrl + "/ticketing/company/user/create/", payload, {headers})
   }
 

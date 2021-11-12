@@ -12,11 +12,14 @@ import {environment} from "../../environments/environment";
 export class UserService {
 
   private tokenKey = 'token';
-  private headers: HttpHeaders;
 
   constructor(private jwtHelper: JwtHelperService, private cookieService: CookieService, private http: HttpClient) {
+  }
+
+  private getHeaders(): HttpHeaders {
     let Authorization = 'Bearer ' + this.getToken();
-    this.headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+    let headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+    return headers
   }
 
   getIdByToken(token: string): number {
@@ -38,7 +41,8 @@ export class UserService {
   }
 
   getMyCompany(): Observable<any> {
-    let headers = this.headers;
+    let headers = this.getHeaders();
+    console.log(headers)
     return this.http.get(environment.apiUrl + "/ticketing/company/user/my/", {headers})
   }
 

@@ -13,18 +13,19 @@ import {CompanyModel} from "../models/company.model";
 
 export class ProjectService {
 
-  private headers: HttpHeaders;
   private userService = new UserService(this.jwtHelper, this.cookieService, this.http);
-  private token: string;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private jwtHelper: JwtHelperService) {
-    this.token = this.userService.getToken();
-    let Authorization = 'Bearer ' + this.token;
-    this.headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+  }
+
+  private getHeaders(): HttpHeaders {
+    let Authorization = 'Bearer ' + this.userService.getToken();
+    let headers = new HttpHeaders({'Content-Type': 'application/json', Authorization })
+    return headers
   }
 
   listByCompany(companyId: string): Observable<unknown> {
-    let headers = this.headers
+    let headers = this.getHeaders()
     console.log(headers)
     let http = this.http.get(environment.apiUrl + `/ticketing/company/project/list/by/company/${companyId}/`, {headers})
     console.log(http)

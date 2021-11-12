@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
 
   login(){
     let login = LoginModel.map(this.loginControlForm.value);
+    swal.showLoading();
     this.loginService.login(login).subscribe((response: any) => {
+      swal.close();
       this.userService.setToken(response.token);
       this.router.navigate(['/companies']);
     }, (error: any) => {

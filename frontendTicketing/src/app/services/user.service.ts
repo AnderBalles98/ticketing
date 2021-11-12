@@ -24,7 +24,6 @@ export class UserService {
 
   getIdByToken(token: string): number {
     let tokenPayload = this.jwtHelper.decodeToken(token);
-    console.log(tokenPayload)
     return tokenPayload.user_id;
   }
 
@@ -42,7 +41,6 @@ export class UserService {
 
   getMyCompany(): Observable<any> {
     let headers = this.getHeaders();
-    console.log(headers)
     return this.http.get(environment.apiUrl + "/ticketing/company/user/my/", {headers})
   }
 

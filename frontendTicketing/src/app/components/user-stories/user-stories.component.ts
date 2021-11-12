@@ -1,23 +1,19 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
 import {ProjectModel} from "../../models/project.model";
 import {CompanyService} from "../../services/company.service";
-import {JwtHelperService} from "@auth0/angular-jwt";
 import {ProjectService} from "../../services/project.service";
-import {UserModel} from "../../models/user.model";
+import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateProjectComponent} from "../create-project/create-project.component";
-import swal from "sweetalert2";
-import {CompanyModel} from "../../models/company.model";
-
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  selector: 'app-user-stories',
+  templateUrl: './user-stories.component.html',
+  styleUrls: ['./user-stories.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class UserStoriesComponent implements OnInit {
 
   public projects: ProjectModel[] = [];
 
@@ -32,8 +28,6 @@ export class ProjectsComponent implements OnInit {
               @Inject(JwtHelperService) private jwtHelper: JwtHelperService, public dialog: MatDialog) {
   }
 
-
-
   openCreateProjectDialog(): void {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
       disableClose: true,
@@ -46,7 +40,7 @@ export class ProjectsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: ProjectModel | any) => {
       if (result) {
-       this.projects.push(result);
+        this.projects.push(result);
       }
     });
   }
@@ -69,14 +63,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let company = this.companyService.getCompany();
-    console.log(company)
-    this.projectService.listByCompany(company.id).subscribe((response: any) => {
-      this.projects = response.map((project: any) => {
-        return ProjectModel.map(project);
-      });
-    });
   }
-
 
 }

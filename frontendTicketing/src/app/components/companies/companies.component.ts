@@ -28,6 +28,8 @@ export class CompaniesComponent implements OnInit {
     });
     swal.showLoading()
     this.companyService.registerUserByToken(companyDict.id).subscribe((response: any) => {
+        console.log(CompanyModel.map(response.company))
+        this.companyService.setCompany(CompanyModel.map(response.company));
         this.router.navigate(['ticketing'])
         swal.close();
     }, (error: any) => {

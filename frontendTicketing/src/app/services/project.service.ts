@@ -6,6 +6,7 @@ import {CookieService} from "ngx-cookie-service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {UserService} from "./user.service";
 import {CompanyModel} from "../models/company.model";
+import {ProjectModel} from "../models/project.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,25 @@ export class ProjectService {
   }
 
   listByCompany(companyId: string): Observable<unknown> {
-    let headers = this.getHeaders()
-    console.log(headers)
-    let http = this.http.get(environment.apiUrl + `/ticketing/company/project/list/by/company/${companyId}/`, {headers})
-    console.log(http)
-    return http
+    let headers = this.getHeaders();
+    return this.http.get(environment.apiUrl + `/ticketing/company/project/list/by/company/${companyId}/`, {headers})
+  }
+
+  create(project: ProjectModel): Observable<unknown> {
+    let headers = this.getHeaders();
+    let payload = {
+      ...project,
+      company: project.company.id
+    }
+    return this.http.post(environment.apiUrl + '/ticketing/company/project/create/', payload, {headers});
+  }
+
+  update(project: ProjectModel): Observable<unknown> {
+    let headers = this.getHeaders();
+    let payload = {
+      ...project
+    }
+    return this.http.put(environment.apiUrl + `/ticketing/company/project/update/${project.id}/`, payload, {headers});
   }
 
 

@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       this.userService.setToken(response.token);
       this.router.navigate(['/companies']);
     }, (error: any) => {
-      console.log(error.error);
       swal.fire('Invalid credentials', 'Login', 'error');
       this.loginControlPassword.setValue('');
       this.userService.deleteToken();

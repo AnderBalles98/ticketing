@@ -1,24 +1,25 @@
-import {CompanyModel} from "./company.model";
 import {UserModel} from "./user.model";
+import {ProjectModel} from "./project.model";
 
-export class ProjectModel {
+export class UserStoryModel {
 
   public id: string;
   public name: string;
   public description: string;
-  public company: CompanyModel;
+  public display_id: number;
+  public project: ProjectModel;
   public created_at: string;
   public modified_at: string;
   public created_by: UserModel;
 
 
-  constructor(id: string = '', name: string = '', description: string = '', company: CompanyModel = new CompanyModel(),
-              created_at: Date = new Date(), modified_at: Date = new Date(), created_by: UserModel = new UserModel()) {
+  constructor(id: string = '', name: string = '', description: string = '', company: ProjectModel = new ProjectModel(),
+              created_at: Date = new Date(), modified_at: Date = new Date(), created_by: UserModel = new UserModel(), display_id: number = 0) {
     this.id = id;
+    this.display_id = display_id;
     this.name = name;
     this.description = description;
-    this.company = company;
-    this.created_by = created_by;
+    this.project = company;
 
     let m = new Date(created_at);
     let dateString =
@@ -42,13 +43,13 @@ export class ProjectModel {
   }
 
 
-  static map(obj: any): ProjectModel {
-    let emptyProject = new ProjectModel();
+  static map(obj: any): UserStoryModel {
+    let emptyProject = new UserStoryModel();
     obj = {
       ...emptyProject,
       ...obj
     }
-    return new ProjectModel(obj.id, obj.name, obj.description, CompanyModel.map(obj.company), obj.created_at,
+    return new UserStoryModel(obj.id, obj.name, obj.description, CompanyModel.map(obj.company), obj.created_at,
       obj.modified_at, UserModel.map(obj.created_by))
   }
 

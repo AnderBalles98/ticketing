@@ -15,7 +15,6 @@ export class AuthenticationGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let isUserAuth = this.userService.isTokenValid();
-    console.log("isUserAuth", isUserAuth)
     if (!isUserAuth) {
       this.router.navigate(['/login'])
     }

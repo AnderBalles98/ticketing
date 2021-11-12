@@ -19,6 +19,17 @@ import {RegisterComponent} from './components/register/register.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+
+
+// dialog
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import { UserStoriesComponent } from './components/user-stories/user-stories.component';
+import { CreateUserStoryComponent } from './components/create-user-story/create-user-story.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +38,22 @@ import { ProjectsComponent } from './components/projects/projects.component';
     RegisterComponent,
     CompaniesComponent,
     NavbarComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    CreateProjectComponent,
+    UserStoriesComponent,
+    CreateUserStoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [CookieService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]

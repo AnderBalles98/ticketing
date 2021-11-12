@@ -93,7 +93,6 @@ export class RegisterComponent implements OnInit {
   register(){
     let register = RegisterModel.map(this.registerControlForm.value);
     this.registerService.register(register).subscribe((response: any) => {
-      console.log(response);
       swal.fire('Successful registration ', '', 'success')
         .then(() => {
             this.router.navigate(['/login'])

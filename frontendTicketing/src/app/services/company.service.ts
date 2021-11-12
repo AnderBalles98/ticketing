@@ -27,10 +27,7 @@ export class CompanyService {
 
   list(): Observable<unknown> {
     let headers = this.getHeaders()
-    console.log(headers)
-    let http = this.http.get(environment.apiUrl + "/ticketing/company/list/", {headers})
-    console.log(http)
-    return http
+    return this.http.get(environment.apiUrl + "/ticketing/company/list/", {headers})
   }
 
   registerUserByToken(copmanyId: string): Observable<unknown> {
@@ -44,13 +41,17 @@ export class CompanyService {
     return this.http.post(environment.apiUrl + "/ticketing/company/user/create/", payload, {headers})
   }
 
-  setCompany(company: CompanyModel) {
+  setCompany(company: CompanyModel):void {
     this.cookieService.set(this.companyKey, JSON.stringify(company), 1);
   }
 
   getCompany(): CompanyModel  {
     let companyDict = this.cookieService.get(this.companyKey);
     return CompanyModel.map(JSON.parse(companyDict));
+  }
+
+  deleteCompany():void {
+    this.cookieService.delete(this.companyKey);
   }
 
 }

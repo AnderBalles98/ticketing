@@ -13,3 +13,19 @@ class CompanyUserSerializer(serializers.ModelSerializer):
         model = CompanyUser
         fields = '__all__'
 
+    def create(self, validated_data):
+        company_user = CompanyUser(**validated_data)
+        context_data = self.context['request'].data
+        if not 'company' in context_data.keys():
+            raise serializers.ValidationError({'company': ['This value is required']})
+        company_id = context_data['company']
+        try:
+            company = Company.objects.get(pk=company_id)
+            company_user.company = company
+        except ObjectDoesNotExist:
+            raise serializers.ValidationError({'company': ['company doesn\'t exist']})
+        except ModelValidationError:
+            raise serializers.ValidationError({'company': ['This value is not a valid uuid']})
+        company_user.save()
+        return company_user
+

@@ -3,10 +3,13 @@ from rest_framework import serializers
 from rest_framework import validators
 from .project import ProjectSerializer
 from django.core.exceptions import ValidationError as ModelValidationError, ObjectDoesNotExist
+from users.serializers import UserSerializer
+
 
 class UserStorySerializer(serializers.ModelSerializer):
 
     project = ProjectSerializer(read_only=True)
+    created_by = UserSerializer(read_only=True)
 
     class Meta:
         model = UserStory
@@ -15,12 +18,14 @@ class UserStorySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_story = UserStory(**validated_data)
         context_data = self.context['request'].data
+        user = self.context['request'].user
         if not 'project' in context_data.keys():
             raise serializers.ValidationError({'project': ['This value is required']})
         project_id = context_data['project']
         try:
             project = Project.objects.get(pk=project_id)
             user_story.project = project
+            user_story.created_by = user
         except ObjectDoesNotExist:
             raise serializers.ValidationError({'project': ['project doesn\'t exist']})
         except ModelValidationError:

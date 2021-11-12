@@ -37,9 +37,9 @@ export class UserService {
     return this.cookieService.get(this.tokenKey)
   }
 
-  getMyCompany(): Observable<unknown> {
-    let headers = this.headers
-    return this.http.get(environment.apiUrl + "", {headers})
+  getMyCompany(): Observable<any> {
+    let headers = this.headers;
+    return this.http.get(environment.apiUrl + "/ticketing/company/user/my/", {headers})
   }
 
   isTokenValid(): boolean {
@@ -52,7 +52,6 @@ export class UserService {
       }
     }
     return false;
-
   }
 
 }

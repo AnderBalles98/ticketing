@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   });
 
   private loginService = new LoginService(this.http, this.cookieService, this.jwtHelpet)
-  private userService = new UserService(this.jwtHelpet, this.cookieService)
+  private userService = new UserService(this.jwtHelpet, this.cookieService, this.http)
 
   constructor(@Inject(HttpClient) private http: HttpClient, @Inject(CookieService) private cookieService: CookieService,
               @Inject(JwtHelperService) private jwtHelpet: JwtHelperService, private router: Router) {

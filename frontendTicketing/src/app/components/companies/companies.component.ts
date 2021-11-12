@@ -5,6 +5,7 @@ import {CompanyService} from "../../services/company.service";
 import {CompanyModel} from "../../models/company.model";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-companies',
@@ -13,11 +14,11 @@ import swal from "sweetalert2";
 })
 export class CompaniesComponent implements OnInit {
 
-  private companyService = new CompanyService(this.http, this.cookieServie, this.jwtHelper)
+  private companyService = new CompanyService(this.http, this.cookieService, this.jwtHelper)
   public companies: CompanyModel[] = [];
 
-  constructor(@Inject(HttpClient) private http: HttpClient, @Inject(CookieService) private cookieServie: CookieService,
-              @Inject(JwtHelperService) private jwtHelper: JwtHelperService) {
+  constructor(@Inject(HttpClient) private http: HttpClient, @Inject(CookieService) private cookieService: CookieService,
+              @Inject(JwtHelperService) private jwtHelper: JwtHelperService, private router: Router) {
   }
 
   registerCompany(companyDict: any) {
@@ -27,6 +28,7 @@ export class CompaniesComponent implements OnInit {
     });
     swal.showLoading()
     this.companyService.registerUserByToken(companyDict.id).subscribe((response: any) => {
+        this.router.navigate(['ticketing'])
         swal.close();
     }, (error: any) => {
         swal.close();

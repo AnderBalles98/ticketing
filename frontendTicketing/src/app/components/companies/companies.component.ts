@@ -38,10 +38,15 @@ export class CompaniesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    swal.fire({
+      allowOutsideClick: false
+    });
+    swal.showLoading();
     this.companyService.list().subscribe((response: any) => {
       this.companies = response.map((company: any) => {
         return CompanyModel.map(company);
       });
+      swal.close();
     });
 
   }

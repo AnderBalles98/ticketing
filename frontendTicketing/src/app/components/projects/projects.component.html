@@ -22,12 +22,12 @@
                 <div class="candidate-list-details">
                   <div class="candidate-list-info">
                     <div class="candidate-list-title">
-                      <h5 class="mb-0"><a>{{projects[i].name}}</a></h5>
+                      <h5 class="mb-0"><a routerLink="/ticketing/{{projects[i].name}}">{{projects[i].name}}</a></h5>
                     </div>
                     <div class="candidate-list-option">
                       <ul class="list-unstyled">
                         <li><i class="material-icons align-bottom">event</i>{{projects[i].created_at}}</li>
-                        <li>{{projects[i].description}}</li>
+                        <li class="multiline"><{{projects[i].description}}</li>
                       </ul>
                     </div>
                   </div>

@@ -30,6 +30,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { UserStoriesComponent } from './components/user-stories/user-stories.component';
 import { CreateUserStoryComponent } from './components/create-user-story/create-user-story.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CreateUserStoryComponent } from './components/create-user-story/create-
     ProjectsComponent,
     CreateProjectComponent,
     UserStoriesComponent,
-    CreateUserStoryComponent
+    CreateUserStoryComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

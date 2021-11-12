@@ -13,13 +13,15 @@ export class UserStoryModel {
   public created_by: UserModel;
 
 
-  constructor(id: string = '', name: string = '', description: string = '', company: ProjectModel = new ProjectModel(),
+  constructor(id: string = '', name: string = '', description: string = '', project: ProjectModel = new ProjectModel(),
               created_at: Date = new Date(), modified_at: Date = new Date(), created_by: UserModel = new UserModel(), display_id: number = 0) {
+
     this.id = id;
     this.display_id = display_id;
     this.name = name;
     this.description = description;
-    this.project = company;
+    this.project = project;
+    this.created_by = created_by;
 
     let m = new Date(created_at);
     let dateString =
@@ -44,13 +46,13 @@ export class UserStoryModel {
 
 
   static map(obj: any): UserStoryModel {
-    let emptyProject = new UserStoryModel();
+    let emptyUserStory = new UserStoryModel();
     obj = {
-      ...emptyProject,
+      ...emptyUserStory,
       ...obj
     }
-    return new UserStoryModel(obj.id, obj.name, obj.description, CompanyModel.map(obj.company), obj.created_at,
-      obj.modified_at, UserModel.map(obj.created_by))
+    return new UserStoryModel(obj.id, obj.name, obj.description, ProjectModel.map(obj.company), obj.created_at,
+      obj.modified_at, UserModel.map(obj.created_by), obj.display_id)
   }
 
 }

@@ -70,11 +70,15 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     let company = this.companyService.getCompany();
-    console.log(company)
+    swal.fire({
+      allowOutsideClick: false
+    });
+    swal.showLoading();
     this.projectService.listByCompany(company.id).subscribe((response: any) => {
       this.projects = response.map((project: any) => {
         return ProjectModel.map(project);
       });
+      swal.close();
     });
   }
 

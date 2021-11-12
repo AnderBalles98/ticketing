@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let project of projects; index as i"  class="candidates-list">
+            <tr *ngFor="let project of userStories; index as i" class="candidates-list">
               <td class="title">
                 <div class="thumb">
                   <img class="img-fluid" src="https://20o8nn37v3mzb7unq3fsj61e-wpengine.netdna-ssl.com/wp-content/uploads/2018/12/Project-management-tools-bad.jpg" alt="">
@@ -22,22 +22,22 @@
                 <div class="candidate-list-details">
                   <div class="candidate-list-info">
                     <div class="candidate-list-title">
-                      <h5 class="mb-0"><a>{{projects[i].name}}</a></h5>
+                      <h5 class="mb-0"><a>{{userStories[i].name}}</a></h5>
                     </div>
                     <div class="candidate-list-option">
                       <ul class="list-unstyled">
-                        <li><i class="material-icons align-bottom">event</i>{{projects[i].created_at}}</li>
-                        <li>{{projects[i].description}}</li>
+                        <li><i class="material-icons align-bottom">event</i>{{userStories[i].created_at}}</li>
+                        <li class="multiline">{{userStories[i].description}}</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </td>
               <td class="candidate-list-favourite-time text-center">
-                <span class="candidate-list-time"><i class="material-icons edit-icon" (click)="openModifyProjectDialog(projects[i], i)" >mode_edit</i></span>
+                <span class="candidate-list-time"><i class="material-icons edit-icon" (click)="openModifyProjectDialog(userStories[i], i)" >mode_edit</i></span>
               </td>
               <td class="text-center">
-                <span class="candidate-list-timse order-1">{{projects[i].created_by.username}}</span>
+                <span class="candidate-list-timse order-1">{{userStories[i].created_by.username}}</span>
               </td>
             </tr>
             </tbody>

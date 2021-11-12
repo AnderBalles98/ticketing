@@ -2,6 +2,10 @@ body{
   background-color: #f8f9fa!important
 }
 
+.multiline {
+  white-space: pre-wrap;
+}
+
 .edit-icon:hover {
   color: #646f79;
   cursor: pointer;

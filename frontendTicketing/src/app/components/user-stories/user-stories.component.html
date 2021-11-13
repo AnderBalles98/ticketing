@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-3 mb-4">
+  <div class="col-lg-9 mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+          <table class="table manage-candidates-top mb-0">
+            <thead>
+            <tr>
+              <th>User story name <i class="material-icons align-text-bottom" (click)="openCreateUserStoryDialog()" id="newProject">add</i></th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Created by</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of userStories; index as i" class="candidates-list">
+              <td class="title">
+                <div class="thumb">
+                  <img class="img-fluid" src="https://hocvienagile.com/wp-content/uploads/2021/01/User-Stories-1.jpg" alt="">
+                </div>
+                <div class="candidate-list-details">
+                  <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                      <h5 class="mb-0"><a routerLink="/ticketing/{{userStories[i].project.name}}/{{userStories[i].display_id}}">{{userStories[i].name}}</a></h5>
+                    </div>
+                    <div class="candidate-list-option">
+                      <ul class="list-unstyled">
+                        <li><i class="material-icons align-bottom">event</i>{{userStories[i].created_at}}</li>
+                        <li><a routerLink="/ticketing/{{userStories[i].project.name}}"><i class="material-icons align-bottom">emoji_objects</i>{{userStories[i].project.name}}</a></li>
+                        <li class="multiline">{{userStories[i].description}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="candidate-list-favourite-time text-center">
+                <span class="candidate-list-time"><i class="material-icons edit-icon" (click)="openModifyUserStoryDialog(userStories[i], i)" >mode_edit</i></span>
+                <span class="candidate-list-time"><i class="material-icons delete-icon" (click)="delete(userStories[i])" >delete</i></span>
+              </td>
+              <td class="text-center">
+                <span class="candidate-list-timse order-1">{{userStories[i].created_by.username}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -52,7 +52,7 @@ export class CreateUserStoryComponent implements OnInit {
     });
     console.log(userStory)
     swal.fire( {
-      title: 'Creating project',
+      title: 'Creating user story',
       allowOutsideClick: false
     })
     swal.showLoading()

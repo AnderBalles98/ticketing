@@ -1,1 +1,25 @@
-<p>create-ticket works!</p>
+<div class="craete-project-container">
+  <h3>{{data.title}}</h3>
+  <form [formGroup]="TicketFormGroup" (ngSubmit)="createOrUpdateStoryUser()">
+    <mat-form-field class="create-project-from-field">
+      <mat-label>Name</mat-label>
+      <input [formControl]="nameFormControl" autocomplete="off" type="text" matInput placeholder="Name">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="create-project-from-field description-field">
+      <mat-label>Description</mat-label>
+      <textarea [formControl]="descriptionFormControl" matInput placeholder="Description"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="create-project-from-field">
+      <mat-select [formControl]="StateFormControl">
+        <mat-label >State</mat-label>
+        <mat-option *ngFor="let item of availableStates; index as i" value="{{availableStates[i].id}}">{{availableStates[i].name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button type="submit" mat-raised-button color="primary">{{data.buttonText}}</button>
+      <button type="button" mat-button color="warn" (click)="close()">Cancelar</button>
+    </div>
+  </form>
+</div>

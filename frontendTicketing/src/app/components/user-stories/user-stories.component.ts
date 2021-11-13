@@ -38,7 +38,7 @@ export class UserStoriesComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
-  openCreateProjectDialog(): void {
+  openCreateUserStoryDialog(): void {
     const dialogRef = this.dialog.open(CreateUserStoryComponent, {
       disableClose: true,
       width: '500px',
@@ -61,7 +61,7 @@ export class UserStoriesComponent implements OnInit {
     });
   }
 
-  openModifyProjectDialog(userStory: UserStoryModel, index: number): void {
+  openModifyUserStoryDialog(userStory: UserStoryModel, index: number): void {
     const dialogRef = this.dialog.open(CreateUserStoryComponent, {
       disableClose: true,
       width: '500px',

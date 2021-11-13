@@ -8,7 +8,7 @@
           <table class="table manage-candidates-top mb-0">
             <thead>
             <tr>
-              <th>User story name <i class="material-icons align-text-bottom" (click)="openCreateProjectDialog()" id="newProject">add</i></th>
+              <th>User story name <i class="material-icons align-text-bottom" (click)="openCreateUserStoryDialog()" id="newProject">add</i></th>
               <th class="text-center">Edit</th>
               <th class="text-center">Created by</th>
             </tr>
@@ -22,7 +22,7 @@
                 <div class="candidate-list-details">
                   <div class="candidate-list-info">
                     <div class="candidate-list-title">
-                      <h5 class="mb-0"><a>{{userStories[i].name}}</a></h5>
+                      <h5 class="mb-0"><a routerLink="/ticketing/{{userStories[i].project.name}}/{{userStories[i].display_id}}">{{userStories[i].name}}</a></h5>
                     </div>
                     <div class="candidate-list-option">
                       <ul class="list-unstyled">
@@ -35,7 +35,7 @@
                 </div>
               </td>
               <td class="candidate-list-favourite-time text-center">
-                <span class="candidate-list-time"><i class="material-icons edit-icon" (click)="openModifyProjectDialog(userStories[i], i)" >mode_edit</i></span>
+                <span class="candidate-list-time"><i class="material-icons edit-icon" (click)="openModifyUserStoryDialog(userStories[i], i)" >mode_edit</i></span>
                 <span class="candidate-list-time"><i class="material-icons delete-icon" (click)="delete(userStories[i])" >delete</i></span>
               </td>
               <td class="text-center">

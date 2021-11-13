@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'ticketing', component: ProjectsComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: 'ticketing/:projectName', component: UserStoriesComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: 'userStories', component: UserStoriesComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
+  {path: 'tickets', component: TicketsComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: 'ticketing/:projectName/:userStoryDisplayId', component: TicketsComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}

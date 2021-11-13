@@ -29,7 +29,6 @@ export class CreateProjectComponent implements OnInit {
   constructor(@Inject(HttpClient) private http: HttpClient, private dialog: MatDialogRef<CreateProjectComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, @Inject(CookieService) private cookieService: CookieService,
               @Inject(JwtHelperService) private jwtHelper: JwtHelperService) {
-    console.log(data)
   }
 
   close() {

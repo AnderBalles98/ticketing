@@ -25,7 +25,7 @@ export class ProjectService {
     return headers
   }
 
-  listByCompany(companyId: string): Observable<unknown> {
+  listByCompanyId(companyId: string): Observable<unknown> {
     let headers = this.getHeaders();
     return this.http.get(environment.apiUrl + `/ticketing/company/project/list/by/company/${companyId}/`, {headers})
   }

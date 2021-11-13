@@ -35,16 +35,28 @@ export class UserStoryService {
       ...userStory,
       project: userStory.project.id
     }
-    return this.http.post(environment.apiUrl + '', payload, {headers});
+    return this.http.post(environment.apiUrl + '/ticketing/company/userStory/create/', payload, {headers});
   }
 
   update(userStory: UserStoryModel): Observable<unknown> {
     let headers = this.getHeaders();
     let payload = {
-      ...userStory
+      ...userStory,
+      project: userStory.project.id
     }
-    return this.http.put(environment.apiUrl + ``, payload, {headers});
+    return this.http.put(environment.apiUrl + `/ticketing/company/userStory/update/${userStory.id}/`, payload, {headers});
   }
+
+  delete(userStory: UserStoryModel): Observable<unknown> {
+    let headers = this.getHeaders();
+    return this.http.delete(environment.apiUrl + `/ticketing/company/userStory/delete/${userStory.id}/`, {headers});
+  }
+
+  list(): Observable<unknown> {
+    let headers = this.getHeaders();
+    return this.http.get(environment.apiUrl + `/ticketing/company/userStory/list/`, {headers});
+  }
+
 
 
 }

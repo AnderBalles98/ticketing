@@ -51,7 +51,7 @@ export class UserStoryModel {
       ...emptyUserStory,
       ...obj
     }
-    return new UserStoryModel(obj.id, obj.name, obj.description, ProjectModel.map(obj.company), obj.created_at,
+    return new UserStoryModel(obj.id, obj.name, obj.description, ProjectModel.map(obj.project), obj.created_at,
       obj.modified_at, UserModel.map(obj.created_by), obj.display_id)
   }
 

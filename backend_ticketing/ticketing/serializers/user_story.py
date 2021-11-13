@@ -32,3 +32,21 @@ class UserStorySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'project': ['This value is not a valid uuid']})
         user_story.save()
         return user_story
+
+    def update(self, user_story, validated_data):
+
+        for key in validated_data.keys():
+            setattr(user_story, key, validated_data[key])
+        context_data = self.context['request'].data
+        if not 'project' in context_data.keys():
+            raise serializers.ValidationError({'project': ['This value is required']})
+        project_id = context_data['project']
+        try:
+            project = Project.objects.get(pk=project_id)
+            user_story.project = project
+        except ObjectDoesNotExist:
+            raise serializers.ValidationError({'project': ['project doesn\'t exist']})
+        except ModelValidationError:
+            raise serializers.ValidationError({'project': ['This value is not a valid uuid']})
+        user_story.save()
+        return user_story

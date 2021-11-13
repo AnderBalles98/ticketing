@@ -6,6 +6,14 @@ body{
   white-space: pre-wrap;
 }
 
+.delete-icon{
+  color: #e74c3c;
+}
+
+.delete-icon:hover{
+  color: brown;
+  cursor: pointer;
+}
 
 .edit-icon:hover {
   color: #646f79;

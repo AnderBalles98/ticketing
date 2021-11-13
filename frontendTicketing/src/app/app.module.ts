@@ -31,6 +31,9 @@ import {MatButtonModule} from "@angular/material/button";
 import { UserStoriesComponent } from './components/user-stories/user-stories.component';
 import { CreateUserStoryComponent } from './components/create-user-story/create-user-story.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import {MatSelectModule} from "@angular/material/select";
+import { TicketsComponent } from './components/tickets/tickets.component';
+import { CreateTicketComponent } from './components/create-ticket/create-ticket.component';
 
 @NgModule({
   declarations: [
@@ -43,20 +46,23 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     CreateProjectComponent,
     UserStoriesComponent,
     CreateUserStoryComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TicketsComponent,
+    CreateTicketComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule
+    ],
   providers: [CookieService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]
 })

@@ -25,8 +25,11 @@ export class UserStoriesComponent implements OnInit {
 
   private companyService = new CompanyService(this.http, this.cookieServide, this.jwtHelper);
   private userStoryService = new UserStoryService(this.http, this.cookieServide, this.jwtHelper);
+  private projectService = new ProjectService(this.http, this.cookieServide, this.jwtHelper);
 
   public newUserStory = new UserStoryModel();
+  private availableProjects: ProjectModel[] = [];
+
 
   public company = this.companyService.getCompany();
 
@@ -40,14 +43,20 @@ export class UserStoriesComponent implements OnInit {
       disableClose: true,
       width: '500px',
       data: {
-        project: this.newUserStory,
+        userStory: this.newUserStory,
         title: 'New user story',
-        buttonText: 'Create'
+        buttonText: 'Create',
+        defaultProject: this.newUserStory.project,
+        availableProjects: this.availableProjects
       }
     });
-    dialogRef.afterClosed().subscribe((result: ProjectModel | any) => {
+    dialogRef.afterClosed().subscribe((result: UserStoryModel | undefined) => {
       if (result) {
-        this.userStories.push(result);
+        console.log((this.newUserStory))
+        console.log(result)
+        if (this.newUserStory.project.id === '' || this.newUserStory.project.id === result.project.id) {
+          this.userStories.push(result);
+        }
       }
     });
   }
@@ -57,9 +66,11 @@ export class UserStoriesComponent implements OnInit {
       disableClose: true,
       width: '500px',
       data: {
-        project: userStory,
+        userStory: userStory,
         title: 'Update user story',
-        buttonText: 'Update'
+        buttonText: 'Update',
+        defaultProject: userStory.project,
+        availableProjects: this.availableProjects
       }
     });
     dialogRef.afterClosed().subscribe((result: UserStoryModel | any) => {
@@ -67,6 +78,61 @@ export class UserStoriesComponent implements OnInit {
         this.userStories[index] = result;
       }
     });
+  }
+
+  delete(userStory: UserStoryModel) {
+    const swalWithBootstrapButtons = swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swal.fire({
+          allowOutsideClick: false
+        });
+        swal.showLoading();
+        this.userStoryService.delete(userStory).subscribe(() => {
+          swal.close();
+          this.userStories = this.userStories.filter((userStoryLoop, index) => {
+            if (userStoryLoop.id == userStory.id) {
+              return;
+            }
+            return userStory;
+          });
+          swal.fire(
+            'Deleted!',
+            `User story ${userStory.name} was deleted`,
+            'success'
+          );
+
+        }, () => {
+          swal.close();
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+        swal.fire(
+          'Cancelled',
+          '',
+          'error'
+        )
+      }
+    })
+
   }
 
   ngOnInit(): void {
@@ -77,19 +143,58 @@ export class UserStoriesComponent implements OnInit {
       swal.showLoading();
       const {params} = paramMap;
       let projectName = params.projectName;
-      console.log(projectName)
-      this.userStoryService.listByProjectNameAndCompanyName(projectName, this.company.name).subscribe((response: any) => {
-        console.log(response)
-        this.userStories = response.map((userStory: any) => {
-          return UserStoryModel.map(userStory);
+      this.projectService.listByCompanyId(this.company.id).subscribe((response: any) => {
+        let availableProjects: ProjectModel[] = [];
+        response.forEach((project: any) => {
+          if (project.name === projectName) {
+            this.newUserStory = UserStoryModel.map({project});
+          }
+          availableProjects.push(ProjectModel.map(project));
         });
-        swal.close()
-      },  (error: HttpErrorResponse) => {
+        this.availableProjects = availableProjects;
+        if (projectName) {
+          this.userStoryService.listByProjectNameAndCompanyName(projectName, this.company.name).subscribe((response: any) => {
+            console.log(response)
+            this.userStories = response.map((userStory: any) => {
+              return UserStoryModel.map(userStory);
+            });
+            console.log(this.userStories)
+            swal.close()
+          }, (error: HttpErrorResponse) => {
+            if (error.status == 404) {
+              this.router.navigate(['/404'])
+              swal.close()
+            }
+          });
+        } else {
+          this.userStoryService.list().subscribe((response: any) => {
+            this.userStories = response.filter((userStory: any) => {
+              if (userStory.project.company.id === this.company.id) {
+                console.log(userStory)
+                return UserStoryModel.map(userStory);
+              } else {
+                return;
+              }
+            });
+            console.log("dasdasdasda", this.userStories)
+            swal.close()
+          }, (error: HttpErrorResponse) => {
+            if (error.status == 404) {
+              this.router.navigate(['/404'])
+              swal.close()
+            }
+          });
+        }
+
+
+      }, (error: HttpErrorResponse) => {
         if (error.status == 404) {
           this.router.navigate(['/404'])
           swal.close()
         }
       });
+
+
     });
   }
 

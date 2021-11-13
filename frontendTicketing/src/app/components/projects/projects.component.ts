@@ -74,7 +74,7 @@ export class ProjectsComponent implements OnInit {
       allowOutsideClick: false
     });
     swal.showLoading();
-    this.projectService.listByCompany(company.id).subscribe((response: any) => {
+    this.projectService.listByCompanyId(company.id).subscribe((response: any) => {
       this.projects = response.map((project: any) => {
         return ProjectModel.map(project);
       });

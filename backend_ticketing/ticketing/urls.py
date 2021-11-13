@@ -8,7 +8,8 @@ from ticketing.views import (CompanyCreateView, CompanyListView, CompanyUserList
                              TicketStateListView, TicketingListByCompanyAndProjectAndUserStorySubIdView,
                              TicketCreateWithUserStoryDisplayIdApiView,
                              ProjectListApiView, ProjectCreateApiView, ProjectListByCompanyView, ProjectUpdateApiView,
-                             ProjectDestroyApiView,
+                             ProjectDestroyApiView, CommentCreateView, CommentUpdateApiView, CommentListByTicketView,
+                             CommentDestroyById,
                              ProjectListByCompanyNameView)
 
 urlpatterns = [
@@ -39,4 +40,8 @@ urlpatterns = [
          TicketingListByCompanyAndProjectAndUserStorySubIdView.as_view()),
     path('company/ticket/update/<pk>/', TicketUpdateApiView.as_view()),
     path('company/ticket/delete/<pk>/', TicketDestroyApiView.as_view()),
+    path('company/comment/create/', CommentCreateView.as_view()),
+    path('company/comment/update/<pk>/', CommentUpdateApiView.as_view()),
+    path('company/comment/list/by/ticket/<ticket_pk>/', CommentListByTicketView.as_view()),
+    path('company/comment/delete/<pk>/', CommentDestroyById.as_view()),
 ]

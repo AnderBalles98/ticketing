@@ -4,3 +4,4 @@ from .user_story import UserStoryCreateView, UserStoryListView, UserStoryUpdateV
 from .ticket import TicketDestroyApiView, TicketListApiView, TicketUpdateApiView, TicketCreateApiView, TicketingListByUserStoryView, TicketingListByCompanyAndProjectAndUserStorySubIdView, TicketCreateWithUserStoryDisplayIdApiView
 from .ticket_state import TicketStateListView
 from .project import ProjectListApiView, ProjectCreateApiView, ProjectListByCompanyView, ProjectUpdateApiView, ProjectDestroyApiView, ProjectListByCompanyNameView
+from .comment import CommentCreateView, CommentUpdateApiView, CommentListByTicketView, CommentDestroyById

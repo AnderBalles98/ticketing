@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError as ModelValidationError, Obje
 from users.serializers import UserSerializer
 class TicketSerializer(serializers.ModelSerializer):
 
-    state = TicketStateSerializer(required=False)
+    state = TicketStateSerializer(required=False, read_only=True)
     user_story = UserStorySerializer(read_only=True)
     created_by = UserSerializer(read_only=True)
 

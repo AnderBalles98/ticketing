@@ -13,6 +13,7 @@ import {NotCompanyGuard} from "./guards/not-company.guard";
 import {UserStoriesComponent} from "./components/user-stories/user-stories.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {TicketsComponent} from "./components/tickets/tickets.component";
+import {TicketComponent} from "./components/ticket/ticket.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/companies', pathMatch: 'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'userStories', component: UserStoriesComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: 'tickets', component: TicketsComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: 'ticketing/:projectName/:userStoryDisplayId', component: TicketsComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
+  {path: 'ticket/:displayId', component: TicketComponent, canActivate: [AuthenticationGuard, CompanyGuard]},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}
 ];

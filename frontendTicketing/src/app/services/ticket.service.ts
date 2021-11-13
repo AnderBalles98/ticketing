@@ -60,6 +60,9 @@ export class TicketService {
     return this.http.get(environment.apiUrl + `/ticketing/company/ticket/list/`, {headers});
   }
 
-
+  getByDisplayId(displayId: number): Observable<unknown> {
+    let headers = this.getHeaders();
+    return this.http.get(environment.apiUrl + `/ticketing/company/ticket/getBy/displayId/${displayId}/`, {headers});
+  }
 
 }

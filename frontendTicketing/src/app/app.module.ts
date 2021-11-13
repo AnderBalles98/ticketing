@@ -34,6 +34,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import {MatSelectModule} from "@angular/material/select";
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { CreateTicketComponent } from './components/create-ticket/create-ticket.component';
+import { TicketComponent } from './components/ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CreateTicketComponent } from './components/create-ticket/create-ticket.
     CreateUserStoryComponent,
     NotFoundComponent,
     TicketsComponent,
-    CreateTicketComponent
+    CreateTicketComponent,
+    TicketComponent
   ],
     imports: [
         BrowserModule,

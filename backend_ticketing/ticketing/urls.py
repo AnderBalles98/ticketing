@@ -1,16 +1,15 @@
 from django.urls import path
 from ticketing.views import (CompanyCreateView, CompanyListView, CompanyUserListView, CompanyUserListByCompanyView,
-                             CompanyUserCreateView, CompanyUserGetByMyUserView,
-                             UserStoryCreateView, UserStoryListView, UserStoryUpdateView, UserStoryListByProjectView,
+                             CompanyUserCreateView, CompanyUserGetByMyUserView, UserStoryCreateView, UserStoryListView,
+                             UserStoryUpdateView, UserStoryListByProjectView,
                              UserStoryDestroyApiView, UserStoryListByProjectNameAndCompanyNameView,
-                             TicketDestroyApiView, TicketListApiView,
-                             TicketUpdateApiView, TicketCreateApiView, TicketingListByUserStoryView,
+                             TicketDestroyApiView, TicketListApiView, TicketUpdateApiView, TicketCreateApiView,
+                             TicketingListByUserStoryView,
                              TicketStateListView, TicketingListByCompanyAndProjectAndUserStorySubIdView,
-                             TicketCreateWithUserStoryDisplayIdApiView,
-                             ProjectListApiView, ProjectCreateApiView, ProjectListByCompanyView, ProjectUpdateApiView,
+                             TicketCreateWithUserStoryDisplayIdApiView, ProjectListApiView, ProjectCreateApiView,
+                             ProjectListByCompanyView, ProjectUpdateApiView,
                              ProjectDestroyApiView, CommentCreateView, CommentUpdateApiView, CommentListByTicketView,
-                             CommentDestroyById,
-                             ProjectListByCompanyNameView)
+                             CommentDestroyById, TicketGetByDisplayIdView, ProjectListByCompanyNameView)
 
 urlpatterns = [
     path('company/create/', CompanyCreateView.as_view()),
@@ -35,6 +34,7 @@ urlpatterns = [
     path('company/ticket/create/with/userStoryDisplay/', TicketCreateWithUserStoryDisplayIdApiView.as_view()),
     path('company/ticket/state/list/', TicketStateListView.as_view()),
     path('company/ticket/list/', TicketListApiView.as_view()),
+    path('company/ticket/getBy/displayId/<display_id>/', TicketGetByDisplayIdView.as_view()),
     path('company/ticket/list/by/userStory/<user_story_pk>/', TicketingListByUserStoryView.as_view()),
     path('company/ticket/list/by/company/project/userStory/<company_name>/<project_name>/<user_story_display_id>/',
          TicketingListByCompanyAndProjectAndUserStorySubIdView.as_view()),

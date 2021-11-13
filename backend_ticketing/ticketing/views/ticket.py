@@ -1,6 +1,6 @@
-from ticketing.models import Ticket, TicketState, UserStory, Company, Project
+from ticketing.models import Ticket, TicketState, UserStory, Company, Project, CompanyUser
 from ticketing.serializers import TicketSerializer
-from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView, RetrieveAPIView
 from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ValidationError as ModelValidationError, ObjectDoesNotExist
@@ -107,3 +107,28 @@ class TicketDestroyApiView(DestroyAPIView):
         return super(TicketDestroyApiView, self).delete(request)
 
 
+class TicketGetByDisplayIdView(RetrieveAPIView):
+    
+    serializer_class = TicketSerializer
+    queryset = Ticket.objects.all()
+
+    def get_object(self):
+        user = self.request.user
+        try:
+            print("entry")
+            ticket = self.queryset.get(display_id=self.kwargs['display_id'])
+            print(ticket)
+            user_story = ticket.user_story
+            print(user_story)
+            project = user_story.project
+            print(project)
+            company = project.company
+            print(company)
+            company_user = CompanyUser.objects.get(user=user, company=company)
+            return ticket
+        except ObjectDoesNotExist:
+            raise NotFound()
+        
+    def get(self, request, display_id=None):
+        print("entry0")
+        return super(TicketGetByDisplayIdView, self).get(request)

@@ -14,6 +14,18 @@ class TicketCreateApiView(CreateAPIView):
         request.data['created_by'] = request.user.id
         return super(TicketCreateApiView, self).post(request)
 
+class TicketCreateWithUserStoryDisplayIdApiView(CreateAPIView):
+
+    serializer_class = TicketSerializer
+
+    def post(self, request):
+        request.data['created_by'] = request.user.id
+        user_story_display_id = request.data['user_story']
+        user_story = UserStory.objects.get(display_id=user_story_display_id)
+        request.data['user_story'] = user_story.id
+        return super(TicketCreateWithUserStoryDisplayIdApiView, self).post(request)
+
+
 class TicketListApiView(ListAPIView):
 
     serializer_class = TicketSerializer

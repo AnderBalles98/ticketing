@@ -1,6 +1,6 @@
 from .company import CompanyCreateView, CompanyListView
 from .company_user import CompanyUserCreateView, CompanyUserListView, CompanyUserListByCompanyView, CompanyUserGetByMyUserView
 from .user_story import UserStoryCreateView, UserStoryListView, UserStoryUpdateView, UserStoryDestroyApiView, UserStoryListByProjectView, UserStoryListByProjectNameAndCompanyNameView
-from .ticket import TicketDestroyApiView, TicketListApiView, TicketUpdateApiView, TicketCreateApiView, TicketingListByUserStoryView, TicketingListByCompanyAndProjectAndUserStorySubIdView
+from .ticket import TicketDestroyApiView, TicketListApiView, TicketUpdateApiView, TicketCreateApiView, TicketingListByUserStoryView, TicketingListByCompanyAndProjectAndUserStorySubIdView, TicketCreateWithUserStoryDisplayIdApiView
 from .ticket_state import TicketStateListView
 from .project import ProjectListApiView, ProjectCreateApiView, ProjectListByCompanyView, ProjectUpdateApiView, ProjectDestroyApiView, ProjectListByCompanyNameView
